@@ -1,5 +1,6 @@
 import * as dateTime from "https://deno.land/std@0.67.0/datetime/mod.ts"
 interface customDate {
+	date?: Date
 	millisecond?: number
 	second?: number
 	minute?: number
@@ -21,29 +22,48 @@ class DayTs {
 	year: number
 
 	constructor(cDate: customDate | undefined) {
-		const date = new Date()
-		if (cDate?.millisecond) date.setDate(cDate.millisecond)
-		if (cDate?.second) date.setDate(cDate.second)
-		if (cDate?.minute) date.setDate(cDate.minute)
-		if (cDate?.hour) date.setDate(cDate.hour)
-		if (cDate?.day) date.setDate(cDate.day)
-		if (cDate?.month) date.setDate(cDate.month)
-		if (cDate?.year) date.setDate(cDate.year)
-		this.millisecond = date.getMilliseconds()
-		this.second = date.getSeconds()
-		this.minute = date.getMinutes()
-		this.hour = date.getHours()
-		this.date = date
-		this.day = date.getDate()
-		this.dayOfWeek = date.getDay()
-		this.month = date.getMonth()
-		this.year = date.getFullYear()
+		this.date = new Date()
+		if (cDate?.date) this.date = cDate.date
+		if (cDate?.millisecond) this.date.setMilliseconds(cDate.millisecond)
+		if (cDate?.second) this.date.setSeconds(cDate.second)
+		if (cDate?.minute) this.date.setMinutes(cDate.minute)
+		if (cDate?.hour) this.date.setHours(cDate.hour)
+		if (cDate?.day) this.date.setDate(cDate.day)
+		if (cDate?.month) this.date.setMonth(cDate.month)
+		if (cDate?.year) this.date.setFullYear(cDate.year)
+		this.millisecond = this.date.getMilliseconds()
+		this.second = this.date.getSeconds()
+		this.minute = this.date.getMinutes()
+		this.hour = this.date.getHours()
+		this.day = this.date.getDate()
+		this.dayOfWeek = this.date.getDay()
+		this.month = this.date.getMonth()
+		this.year = this.date.getFullYear()
 	}
 
 	// why not... just use a library :)
 	/**
+	 * Parse date from string using format string
+	 * @param dateString Date string
+	 * @param formatString Format string
+	 * @return Parsed date
+	 */
+	parse(dateString: string, formatString: string): DayTs {
+		this.date = dateTime.parse(dateString, formatString)
+		this.millisecond = this.date.getMilliseconds()
+		this.second = this.date.getSeconds()
+		this.minute = this.date.getMinutes()
+		this.hour = this.date.getHours()
+		this.day = this.date.getDate()
+		this.dayOfWeek = this.date.getDay()
+		this.month = this.date.getMonth()
+		this.year = this.date.getFullYear()
+		return this
+	}
+
+	/**
 	  * Format date using format string
-	  * @param format Format string
+	  * @param formatString Format string
 	  * @return formatted date string
 	  */
 	format(formatString: string): string {
