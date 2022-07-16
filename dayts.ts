@@ -1,4 +1,14 @@
 import * as dateTime from "https://deno.land/std@0.67.0/datetime/mod.ts"
+interface customDate {
+	millisecond: number | undefined
+	second: number | undefined
+	minute: number | undefined
+	hour: number | undefined
+	day: number | undefined
+	month: number | undefined
+	year: number | undefined
+}
+
 class DayTs {
 	date: Date
 	millisecond: number
@@ -10,8 +20,15 @@ class DayTs {
 	month: number
 	year: number
 
-	constructor() {
+	constructor(cDate: customDate | undefined) {
 		const date = new Date()
+		if (cDate?.millisecond) date.setDate(cDate.millisecond)
+		if (cDate?.second) date.setDate(cDate.second)
+		if (cDate?.minute) date.setDate(cDate.minute)
+		if (cDate?.hour) date.setDate(cDate.hour)
+		if (cDate?.day) date.setDate(cDate.day)
+		if (cDate?.month) date.setDate(cDate.month)
+		if (cDate?.year) date.setDate(cDate.year)
 		this.millisecond = date.getMilliseconds()
 		this.second = date.getSeconds()
 		this.minute = date.getMinutes()
@@ -181,6 +198,6 @@ function daysPerMonth(month: number, year: number): number {
 	return 0
 }
 
-export default function dayts() {
-	return new DayTs()
+export default function dayts(date: customDate | undefined) {
+	return new DayTs(date)
 }
