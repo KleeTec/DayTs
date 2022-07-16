@@ -1,12 +1,12 @@
 import * as dateTime from "https://deno.land/std@0.67.0/datetime/mod.ts"
 interface customDate {
-	millisecond: number | undefined
-	second: number | undefined
-	minute: number | undefined
-	hour: number | undefined
-	day: number | undefined
-	month: number | undefined
-	year: number | undefined
+	millisecond?: number
+	second?: number
+	minute?: number
+	hour?: number
+	day?: number
+	month?: number
+	year?: number
 }
 
 class DayTs {
@@ -198,6 +198,6 @@ function daysPerMonth(month: number, year: number): number {
 	return 0
 }
 
-export default function dayts(date: customDate | undefined) {
+export default function dayts(date?: customDate) {
 	return new DayTs(date)
 }
