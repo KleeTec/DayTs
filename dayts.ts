@@ -102,8 +102,9 @@ class DayTs {
 		this.date.setHours(this.hour)
 		return this
 	}
-	nextDay(): DayTs {
-		if (this.day++ > daysPerMonth(this.month, this.year)) {
+	nextDay(count?: number): DayTs {
+		if (count && count > 1) for (let index = 0; index < count; index++) this.nextDay()
+		else if (this.day++ > daysPerMonth(this.month, this.year)) {
 			this.nextDayOfWeek()
 			this.nextMonth()
 			this.day = 1

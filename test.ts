@@ -4,3 +4,6 @@ d = d.nextDay()
 console.log(d)
 console.log(d.format("yyyyMMdd"))
 d = dayts()
+
+d.nextDay(10)
+console.log(d)
