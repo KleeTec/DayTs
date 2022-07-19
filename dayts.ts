@@ -1,4 +1,4 @@
-import * as dateTime from "https://deno.land/std@0.148.0/datetime/mod.ts"
+import * as DateTime from "https://deno.land/std@0.148.0/datetime/mod.ts"
 interface customDate {
 	date?: Date
 	millisecond?: number
@@ -49,7 +49,7 @@ class DayTs {
 	 * @return Parsed date
 	 */
 	parse(dateString: string, formatString: string): DayTs {
-		this.date = dateTime.parse(dateString, formatString)
+		this.date = DateTime.parse(dateString, formatString)
 		this.millisecond = this.date.getMilliseconds()
 		this.second = this.date.getSeconds()
 		this.minute = this.date.getMinutes()
@@ -67,7 +67,10 @@ class DayTs {
 	  * @return formatted date string
 	  */
 	format(formatString: string): string {
-		return dateTime.format(this.date, formatString)
+		const offsetSign = this.date.getTimezoneOffset() < 0 ? "-" : "+"
+		const offsetHours = this.date.getTimezoneOffset() / 60
+		const offsetMinutes = this.date.getTimezoneOffset() % 60
+		return DateTime.format(this.date, formatString).replace("KK", `${offsetSign}${offsetHours}:${offsetMinutes}`)
 	}
 	// forward in time
 	nextMillisecond(): DayTs {
@@ -103,7 +106,7 @@ class DayTs {
 		return this
 	}
 	nextDay(count?: number): DayTs {
-		if(count == 0) return this
+		if (count == 0) return this
 		if (count && count > 1) for (let index = 0; index < count; index++) this.nextDay()
 		else if (this.day++ > daysPerMonth(this.month, this.year)) {
 			this.nextDayOfWeek()
