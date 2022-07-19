@@ -1,4 +1,4 @@
-import * as dateTime from "https://deno.land/std@0.67.0/datetime/mod.ts"
+import * as dateTime from "https://deno.land/std@0.148.0/datetime/mod.ts"
 interface customDate {
 	date?: Date
 	millisecond?: number
