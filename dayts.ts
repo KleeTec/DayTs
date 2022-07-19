@@ -10,7 +10,7 @@ interface customDate {
 	year?: number
 }
 
-class DayTs {
+export class DayTs {
 	date: Date
 	millisecond: number
 	second: number
