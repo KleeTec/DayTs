@@ -103,6 +103,7 @@ class DayTs {
 		return this
 	}
 	nextDay(count?: number): DayTs {
+		if(count == 0) return this
 		if (count && count > 1) for (let index = 0; index < count; index++) this.nextDay()
 		else if (this.day++ > daysPerMonth(this.month, this.year)) {
 			this.nextDayOfWeek()
