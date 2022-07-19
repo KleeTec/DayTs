@@ -67,10 +67,10 @@ class DayTs {
 	  * @return formatted date string
 	  */
 	format(formatString: string): string {
-		const offsetSign = this.date.getTimezoneOffset() < 0 ? "-" : "+"
-		const offsetHours = this.date.getTimezoneOffset() / 60
+		const offsetSign = this.date.getTimezoneOffset() > 0 ? "-" : "+"
+		const offsetHours = -this.date.getTimezoneOffset() / 60
 		const offsetMinutes = this.date.getTimezoneOffset() % 60
-		return DateTime.format(this.date, formatString).replace("KK", `${offsetSign}${offsetHours}:${offsetMinutes}`)
+		return DateTime.format(this.date, formatString).replace("KK", `${offsetSign}${offsetHours > 9 ? offsetHours : "0" + offsetHours}:${offsetMinutes > 9 ? offsetMinutes : "0" + offsetMinutes}`)
 	}
 	// forward in time
 	nextMillisecond(): DayTs {
